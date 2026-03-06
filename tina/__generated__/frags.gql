@@ -1,0 +1,106 @@
+fragment SiteParts on Site {
+  __typename
+  hero {
+    __typename
+    title
+    subtitle
+    backgroundImage
+  }
+  about {
+    __typename
+    title
+    body
+    images {
+      __typename
+      src
+      alt
+    }
+  }
+  windsurfing {
+    __typename
+    title
+    body
+    images {
+      __typename
+      src
+      alt
+    }
+  }
+  surfing {
+    __typename
+    title
+    body
+    images {
+      __typename
+      src
+      alt
+    }
+  }
+  location {
+    __typename
+    title
+    body
+    images {
+      __typename
+      src
+      alt
+    }
+    mapEmbedUrl
+  }
+  pricing {
+    __typename
+    title
+    sessionsLabel
+    hoursLabel
+    priceLabel
+    bookButton
+    windsurfing {
+      __typename
+      label
+      rows {
+        __typename
+        sessions
+        hours
+        price
+      }
+    }
+    wingfoil {
+      __typename
+      label
+      rows {
+        __typename
+        sessions
+        hours
+        price
+      }
+    }
+    surfing {
+      __typename
+      label
+      rows {
+        __typename
+        sessions
+        hours
+        price
+      }
+    }
+    equipment {
+      __typename
+      label
+      rows {
+        __typename
+        sessions
+        hours
+        price
+      }
+    }
+  }
+  contact {
+    __typename
+    title
+    phone
+    whatsappText
+    facebookUrl
+    instagramUrl
+  }
+}

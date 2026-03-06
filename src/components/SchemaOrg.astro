@@ -1,0 +1,100 @@
+---
+interface Props {
+  lang: string;
+  phone: string;
+  facebookUrl: string;
+  instagramUrl: string;
+}
+
+const { lang, phone, facebookUrl, instagramUrl } = Astro.props;
+const siteUrl = "https://falawindsurfschool.com";
+
+const localBusiness = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "SportsActivityLocation"],
+  name: "Fala Wind & Surf School",
+  description: lang === "pl"
+    ? "Profesjonalne lekcje windsurfingu i surfingu w El Cotillo, Fuerteventura."
+    : "Professional windsurfing & surfing lessons in El Cotillo, Fuerteventura.",
+  url: siteUrl,
+  telephone: phone,
+  image: `${siteUrl}/images/og-image.jpg`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "El Cotillo",
+    addressRegion: "Fuerteventura",
+    postalCode: "35650",
+    addressCountry: "ES",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 28.7115,
+    longitude: -14.0135,
+  },
+  sameAs: [facebookUrl, instagramUrl],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "5",
+    reviewCount: "3",
+    bestRating: "5",
+  },
+  priceRange: "€€",
+};
+
+const courses = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: lang === "pl" ? "Zajęcia grupowe z windsurfingu" : "Group windsurfing lessons",
+    description: lang === "pl"
+      ? "Lekcje windsurfingu w małych grupach do 4 osób na lagunie El Cotillo."
+      : "Windsurfing lessons in small groups up to 4 people at El Cotillo lagoon.",
+    provider: { "@type": "Organization", name: "Fala Wind & Surf School", url: siteUrl },
+    offers: { "@type": "Offer", price: "60", priceCurrency: "EUR", availability: "https://schema.org/InStock" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: lang === "pl" ? "Lekcje indywidualne" : "Individual lessons",
+    description: lang === "pl"
+      ? "Indywidualne lekcje windsurfingu ze sprzętem Witchcraft."
+      : "Individual windsurfing lessons with Witchcraft equipment.",
+    provider: { "@type": "Organization", name: "Fala Wind & Surf School", url: siteUrl },
+    offers: { "@type": "Offer", price: "100", priceCurrency: "EUR", availability: "https://schema.org/InStock" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: lang === "pl" ? "Lekcje surfingu" : "Surfing lessons",
+    description: lang === "pl"
+      ? "Lekcje surfingu w małych grupach na północnym wybrzeżu Fuerteventury."
+      : "Surfing lessons in small groups on the north coast of Fuerteventura.",
+    provider: { "@type": "Organization", name: "Fala Wind & Surf School", url: siteUrl },
+    offers: { "@type": "Offer", price: "60", priceCurrency: "EUR", availability: "https://schema.org/InStock" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: lang === "pl" ? "Szkolenie wave" : "Wave training",
+    description: lang === "pl"
+      ? "Szkolenie z jazdy na falach i skakania dla zaawansowanych."
+      : "Wave riding and jumping training for advanced riders.",
+    provider: { "@type": "Organization", name: "Fala Wind & Surf School", url: siteUrl },
+    offers: { "@type": "Offer", price: "70", priceCurrency: "EUR", availability: "https://schema.org/InStock" },
+  },
+];
+
+const webSite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Fala Wind & Surf School",
+  url: siteUrl,
+  inLanguage: ["pl", "en"],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(localBusiness)} />
+{courses.map((course) => (
+  <script type="application/ld+json" set:html={JSON.stringify(course)} />
+))}
+<script type="application/ld+json" set:html={JSON.stringify(webSite)} />

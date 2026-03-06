@@ -1,0 +1,6 @@
+[tools]
+node = "22"
+
+[tasks.dev]
+run = "npm run dev"
+description = "Start Astro + TinaCMS dev server"

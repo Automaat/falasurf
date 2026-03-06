@@ -1,0 +1,66 @@
+---
+import "../styles/global.css";
+import { getLangFromUrl, getLocalePath } from "../i18n/ui";
+import SchemaOrg from "../components/SchemaOrg.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  phone?: string;
+  facebookUrl?: string;
+  instagramUrl?: string;
+}
+
+const {
+  title,
+  description = "Fala Wind & Surf School - Windsurfing & Surfing lessons in Fuerteventura, El Cotillo",
+  image = "/images/og-image.jpg",
+  phone = "+34 612 49 07 32",
+  facebookUrl = "https://www.facebook.com/Fala-Windsurf-Surf-School-109607297994786",
+  instagramUrl = "https://www.instagram.com/fala_surf_school/",
+} = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const altLang = lang === "pl" ? "en" : "pl";
+const siteOrigin = Astro.site?.origin || "https://falawindsurfschool.com";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin);
+const ogImageUrl = new URL(image, siteOrigin).href;
+const ogLocale = lang === "pl" ? "pl_PL" : "en_GB";
+const ogLocaleAlt = lang === "pl" ? "en_GB" : "pl_PL";
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Fala Wind & Surf School" />
+    <meta name="theme-color" content="#2d51a5" />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
+    <link rel="canonical" href={canonicalUrl.href} />
+    <link rel="alternate" hreflang="pl" href={new URL(getLocalePath("pl"), siteOrigin).href} />
+    <link rel="alternate" hreflang="en" href={new URL(getLocalePath("en"), siteOrigin).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL(getLocalePath("pl"), siteOrigin).href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl.href} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+    <meta property="og:site_name" content="Fala Wind & Surf School" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <link rel="preconnect" href="https://www.google.com" />
+    <link rel="preconnect" href="https://maps.googleapis.com" />
+    <title>{title}</title>
+    <SchemaOrg lang={lang} phone={phone} facebookUrl={facebookUrl} instagramUrl={instagramUrl} />
+  </head>
+  <body class="bg-white">
+    <slot />
+  </body>
+</html>

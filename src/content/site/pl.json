@@ -1,0 +1,129 @@
+{
+  "hero": {
+    "title": "Fala Wind & Surf School",
+    "subtitle": "Fuerteventura, El Cotillo",
+    "backgroundImage": "/images/hero/1.jpg",
+    "ctaText": "Zarezerwuj lekcję",
+    "ctaHref": "#cennik"
+  },
+  "about": {
+    "title": "O nas",
+    "body": "Jestem instruktorem windsurfingu i surfingu z 20 letnim doświadczeniem, które zdobywałem ucząc w najlepszych szkółkach na całym świecie. Windsurfing i surfing są moją życiową pasją, po latach startów w regatach, w pełni poświęciłem się wave'owi i surfingowi reprezentując obecnie team Witchcraft. Moim celem jako instruktora jest to by zajęcia na wodzie sprawiły Ci jak najwięcej radości przy jednoczesnym robieniu jak największego progresu.",
+    "images": [
+      { "src": "/images/about/1.jpg", "alt": "Instruktor windsurfingu na wodzie" },
+      { "src": "/images/about/2.jpg", "alt": "Lekcja windsurfingu" },
+      { "src": "/images/about/3.jpg", "alt": "Zajęcia na lagunie" },
+      { "src": "/images/about/4.jpg", "alt": "Windsurfing na falach" },
+      { "src": "/images/about/5.jpg", "alt": "Nauka windsurfingu" },
+      { "src": "/images/about/6.jpg", "alt": "Instruktor z uczniami" },
+      { "src": "/images/about/7.jpg", "alt": "Sprzęt Witchcraft" },
+      { "src": "/images/about/8.jpg", "alt": "Windsurfing o zachodzie" }
+    ]
+  },
+  "windsurfing": {
+    "title": "Windsurfing",
+    "body": "Szkółka oferuje zajęcia na każdym poziomie zaawansowania, a także szkolenia wave (naukę skakania i jazdy z falą). Zajęcia odbywają się w małych grupach, od 2 do 4 osób, i tworzone są ze względu na poziom zaawansowania, tak by każdy mógł wynieść z zajęć jak najwięcej dla siebie, jednocześnie świetnie się przy tym bawiąc. Istnieje również możliwość zapisu na lekcje indywidualne. W trakcie zajęć korzystamy ze sprzętu Witchcraft'a, firmy produkującej jedne z najlepszych custom'owych desek i żagli na świecie.",
+    "images": [
+      { "src": "/images/windsurfing/1.jpg", "alt": "Lekcja windsurfingu na lagunie" },
+      { "src": "/images/windsurfing/2.jpg", "alt": "Windsurfing grupowy" },
+      { "src": "/images/windsurfing/3.jpg", "alt": "Nauka windsurfingu" },
+      { "src": "/images/windsurfing/4.jpg", "alt": "Windsurfing na wodzie" },
+      { "src": "/images/windsurfing/5.jpg", "alt": "Zajęcia windsurfingowe" },
+      { "src": "/images/windsurfing/6.jpg", "alt": "Sprzęt windsurfingowy" },
+      { "src": "/images/windsurfing/7.jpg", "alt": "Windsurfing na Fuerteventurze" }
+    ]
+  },
+  "surfing": {
+    "title": "Surfing",
+    "body": "Lekcje surfingu odbywają się w małych, maksymalnie 4 osobowych grupach i są tworzone ze względu na poziom umiejętności. Północne wybrzeże Fuerteventury od okolic Corralejo po El Cotillo usłane jest spotami, także każdy znajdzie coś dla siebie. Spot na zajęcia wybierany jest na podstawie aktualnej prognozy pogody, kierunku swell'u i wiatru, by w jakich najlepszych warunkach robić progres.",
+    "images": [
+      { "src": "/images/surfing/1.jpg", "alt": "Lekcja surfingu" },
+      { "src": "/images/surfing/2.jpg", "alt": "Surfing na Fuerteventurze" },
+      { "src": "/images/surfing/3.jpg", "alt": "Nauka surfingu na falach" }
+    ]
+  },
+  "location": {
+    "title": "Lokalizacja",
+    "body": "Większość zajęć odbywa się w malowniczej lagunie położonej na północ od miejscowości Cotillo. Laguna ta jest niezwykle bezpiecznym miejscem i oferuje wyjątkowe warunki do nauki, od pierwszych halsów do pływania ślizgowego. Przy niskim stanie wody jest wręcz idealna dla dzieci i początkujących. W przypadku zajęć dla osób zaawansowanych i szkoleń wave'owych spot jest wybierany na podstawie prognozy wiatrowej i falowej. Fuerteventura posiada spoty wave'owe na każdy kierunek wiatru i swell'u, dlatego też mega łatwo jest wybrać spot do progresowania jazdy z falą czy skakania.",
+    "images": [
+      { "src": "/images/location/1.jpg", "alt": "Laguna w El Cotillo" },
+      { "src": "/images/location/2.jpg", "alt": "Widok na lagunę" },
+      { "src": "/images/location/3.jpg", "alt": "Plaża El Cotillo" },
+      { "src": "/images/location/4.jpg", "alt": "Warunki do nauki" },
+      { "src": "/images/location/5.jpg", "alt": "Laguna o zachodzie" }
+    ],
+    "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3515.8!2d-14.0135!3d28.7115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc462148ef5a3b8b%3A0x4c8f0e2f0b2c0e0a!2sLaguna%20de%20Cotillo!5e0!3m2!1sen!2ses!4v1700000000000!5m2!1sen!2ses"
+  },
+  "pricing": {
+    "title": "Cennik",
+    "sessionsLabel": "Sesje",
+    "hoursLabel": "Godziny",
+    "priceLabel": "Cena",
+    "bookButton": "Zarezerwuj",
+    "windsurfing": {
+      "label": "Zajęcia grupowe",
+      "rows": [
+        { "sessions": "1 sesja", "hours": "2h", "price": "60€" },
+        { "sessions": "3 sesje", "hours": "6h", "price": "165€" },
+        { "sessions": "5 sesji", "hours": "10h", "price": "250€" }
+      ]
+    },
+    "wingfoil": {
+      "label": "Zajęcia indywidualne",
+      "rows": [
+        { "sessions": "1 sesja", "hours": "2h", "price": "100€" }
+      ]
+    },
+    "surfing": {
+      "label": "Surfing",
+      "rows": [
+        { "sessions": "1 sesja", "hours": "2h", "price": "60€" },
+        { "sessions": "3 sesje", "hours": "6h", "price": "165€" },
+        { "sessions": "5 sesji", "hours": "10h", "price": "250€" }
+      ]
+    },
+    "equipment": {
+      "label": "Szkolenie Wave",
+      "rows": [
+        { "sessions": "1 sesja", "hours": "2h", "price": "70€" },
+        { "sessions": "3 sesje", "hours": "6h", "price": "195€" },
+        { "sessions": "5 sesji", "hours": "10h", "price": "300€" }
+      ]
+    }
+  },
+  "trust": {
+    "stats": [
+      { "value": "20+", "label": "Lat doświadczenia" },
+      { "value": "1000+", "label": "Zadowolonych kursantów" },
+      { "value": "4", "label": "Osoby max w grupie" },
+      { "value": "100%", "label": "Pasji" }
+    ]
+  },
+  "testimonials": {
+    "title": "Opinie",
+    "items": [
+      {
+        "text": "Najlepsze zajęcia z windsurfingu jakie miałem! Instruktor świetnie tłumaczy, a laguna jest idealnym miejscem do nauki. Po 3 dniach pływałem samodzielnie.",
+        "author": "Tomek Kowalski",
+        "origin": "Warszawa, Polska"
+      },
+      {
+        "text": "Byliśmy z rodziną i każdy znalazł coś dla siebie. Dzieci uwielbiały zajęcia, a sprzęt Witchcraft jest naprawdę top. Na pewno wrócimy!",
+        "author": "Anna Wiśniewska",
+        "origin": "Kraków, Polska"
+      },
+      {
+        "text": "Surfing na Fuerteventurze to było niesamowite przeżycie. Profesjonalne podejście, świetna atmosfera i piękne spoty. Gorąco polecam!",
+        "author": "Marek Nowak",
+        "origin": "Gdańsk, Polska"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Kontakt",
+    "phone": "+34 612 49 07 32",
+    "whatsappText": "Napisz na WhatsApp",
+    "facebookUrl": "https://www.facebook.com/Fala-Windsurf-Surf-School-109607297994786",
+    "instagramUrl": "https://www.instagram.com/fala_surf_school/"
+  }
+}

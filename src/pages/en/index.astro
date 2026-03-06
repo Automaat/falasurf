@@ -1,0 +1,104 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Hero from "../../components/Hero.astro";
+import TrustBar from "../../components/TrustBar.astro";
+import Section from "../../components/Section.astro";
+import WaveDivider from "../../components/WaveDivider.astro";
+import PricingTable from "../../components/PricingTable.astro";
+import Testimonials from "../../components/Testimonials.astro";
+import Contact from "../../components/Contact.astro";
+import Footer from "../../components/Footer.astro";
+import WhatsAppFloat from "../../components/WhatsAppFloat.astro";
+
+import content from "../../content/site/en.json";
+
+const heroImages = [
+  "/images/hero/1.jpg",
+  "/images/hero/2.jpg",
+  "/images/hero/3.jpg",
+  "/images/hero/4.jpg",
+];
+---
+
+<Layout
+  title="Fala Wind & Surf School — Windsurfing & Surfing Lessons | El Cotillo, Fuerteventura"
+  description="Professional windsurfing & surfing lessons in El Cotillo, Fuerteventura. 20+ years experience, small groups up to 4, Witchcraft equipment."
+  phone={content.contact.phone}
+  facebookUrl={content.contact.facebookUrl}
+  instagramUrl={content.contact.instagramUrl}
+>
+  <Navbar />
+  <Hero
+    title={content.hero.title}
+    subtitle={content.hero.subtitle}
+    images={heroImages}
+    ctaText={content.hero.ctaText}
+    ctaHref={content.hero.ctaHref}
+  />
+  <!-- <TrustBar stats={content.trust.stats} /> -->
+  <Section
+    id="o-nas"
+    title={content.about.title}
+    body={content.about.body}
+    images={content.about.images}
+  />
+  <WaveDivider from="white" to="var(--color-sand)" />
+  <Section
+    id="windsurfing"
+    title={content.windsurfing.title}
+    body={content.windsurfing.body}
+    images={content.windsurfing.images}
+    reverse
+    bgColor="sand"
+  />
+  <WaveDivider from="var(--color-sand)" to="white" />
+  <Section
+    id="surfing"
+    title={content.surfing.title}
+    body={content.surfing.body}
+    images={content.surfing.images}
+  />
+  <WaveDivider from="white" to="var(--color-sand)" />
+  <Section
+    id="lokalizacja"
+    title={content.location.title}
+    body={content.location.body}
+    images={content.location.images}
+    reverse
+    bgColor="sand"
+  />
+  <WaveDivider from="var(--color-sand)" to="var(--color-sand)" />
+  <PricingTable
+    id="cennik"
+    title={content.pricing.title}
+    sessionsLabel={content.pricing.sessionsLabel}
+    hoursLabel={content.pricing.hoursLabel}
+    priceLabel={content.pricing.priceLabel}
+    bookButton={content.pricing.bookButton}
+    categories={[
+      content.pricing.windsurfing,
+      content.pricing.wingfoil,
+      content.pricing.surfing,
+      content.pricing.equipment,
+    ]}
+    contactAnchor="#contact"
+  />
+  <WaveDivider from="var(--color-sand)" to="white" />
+  <Testimonials
+    id="reviews"
+    title={content.testimonials.title}
+    testimonials={content.testimonials.items}
+  />
+  <Contact
+    id="contact"
+    title={content.contact.title}
+    phone={content.contact.phone}
+    whatsappText={content.contact.whatsappText}
+    facebookUrl={content.contact.facebookUrl}
+    instagramUrl={content.contact.instagramUrl}
+    mapEmbedUrl={content.location.mapEmbedUrl}
+  />
+  <Footer />
+  <WhatsAppFloat phone={content.contact.phone} />
+</Layout>

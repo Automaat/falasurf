@@ -1,0 +1,27 @@
+---
+interface Props {
+  from?: string;
+  to?: string;
+  flip?: boolean;
+}
+
+const { from = "white", to = "white", flip = false } = Astro.props;
+const topColor = flip ? to : from;
+const bottomColor = flip ? from : to;
+---
+
+<div class="relative -my-px" aria-hidden="true">
+  <svg
+    viewBox="0 0 1440 100"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    class="w-full h-12 md:h-16 block"
+    preserveAspectRatio="none"
+  >
+    <rect width="1440" height="100" fill={topColor} />
+    <path
+      d="M0 40C180 80 360 10 540 40C720 70 900 20 1080 50C1260 80 1380 30 1440 50V100H0V40Z"
+      fill={bottomColor}
+    />
+  </svg>
+</div>

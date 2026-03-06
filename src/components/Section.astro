@@ -1,0 +1,32 @@
+---
+import Carousel from "./Carousel.astro";
+
+interface Props {
+  id: string;
+  title: string;
+  body: string;
+  images: { src: string; alt: string }[];
+  reverse?: boolean;
+  bgColor?: "white" | "sand";
+}
+
+const { id, title, body, images, reverse = false, bgColor = "white" } = Astro.props;
+const bg = bgColor === "sand" ? "bg-sand" : "bg-white";
+---
+
+<section id={id} class={`py-20 md:py-28 scroll-mt-20 ${bg}`}>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class={`grid md:grid-cols-2 gap-12 md:gap-16 items-center ${reverse ? "md:[direction:rtl]" : ""}`}>
+      <div class={`${reverse ? "md:[direction:ltr]" : ""}`}>
+        <h2 class="text-3xl md:text-4xl font-bold text-black mb-6 relative inline-block">
+          {title}
+          <span class="absolute -bottom-2 left-0 w-12 h-1 bg-navy rounded-full"></span>
+        </h2>
+        <p class="mt-6 text-base md:text-lg leading-relaxed">{body}</p>
+      </div>
+      <div class={reverse ? "md:[direction:ltr]" : ""}>
+        <Carousel images={images} />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,61 @@
+---
+interface PricingRow {
+  sessions: string;
+  hours: string;
+  price: string;
+}
+
+interface PricingCategory {
+  label: string;
+  rows: PricingRow[];
+}
+
+interface Props {
+  id: string;
+  title: string;
+  sessionsLabel: string;
+  hoursLabel: string;
+  priceLabel: string;
+  bookButton: string;
+  categories: PricingCategory[];
+  contactAnchor: string;
+}
+
+const { id, title, sessionsLabel, hoursLabel, priceLabel, bookButton, categories, contactAnchor } = Astro.props;
+---
+
+<section id={id} class="py-20 md:py-28 bg-sand scroll-mt-20">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <h2 class="text-3xl md:text-4xl font-bold text-black mb-4 text-center">{title}</h2>
+    <div class="w-12 h-1 bg-navy rounded-full mx-auto mb-14"></div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-7">
+      {categories.map((cat) => (
+        <div class="pricing-card bg-white rounded-[20px] shadow-[0_0_8px_rgba(0,0,0,0.12)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col">
+          <div class="bg-navy text-white text-center py-5 px-4">
+            <h3 class="text-lg font-bold tracking-wide">{cat.label}</h3>
+          </div>
+          <div class="p-5 flex-1">
+            {cat.rows.map((row, i) => (
+              <div class:list={["py-4 flex items-baseline justify-between", i > 0 && "border-t border-gray-100"]}>
+                <div>
+                  <span class="text-base font-semibold text-black">{row.sessions}</span>
+                  <span class="text-sm text-gray-text/70 ml-1.5">/ {row.hours}</span>
+                </div>
+                <span class="text-2xl font-bold text-navy">{row.price}</span>
+              </div>
+            ))}
+          </div>
+          <div class="p-5 pt-0">
+            <a
+              href={contactAnchor}
+              class="block text-center bg-navy text-white py-3 rounded-lg font-semibold hover:bg-navy-dark transition-colors text-sm tracking-wide uppercase"
+            >
+              {bookButton}
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
