@@ -11,7 +11,7 @@ const { title, subtitle, images, ctaText, ctaHref } = Astro.props;
 const slideCount = images.length;
 ---
 
-<section class="relative h-screen overflow-hidden">
+<section class="relative h-screen overflow-hidden" aria-roledescription="slideshow" aria-label="Slideshow">
   {/* Slideshow background */}
   <div class="absolute inset-0">
     {images.map((img, i) => (
@@ -61,13 +61,27 @@ const slideCount = images.length;
 
 <script define:vars={{ slideCount }}>
   let current = 0;
+  let intervalId = null;
   const slides = document.querySelectorAll(".hero-slide");
-  if (slides.length > 1) {
-    setInterval(() => {
+
+  function startSlideshow() {
+    if (intervalId || slides.length <= 1) return;
+    intervalId = setInterval(() => {
       const prev = current;
       current = (current + 1) % slideCount;
       slides[prev].style.opacity = "0";
       slides[current].style.opacity = "1";
     }, 4000);
   }
+
+  function stopSlideshow() {
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+  }
+
+  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (!mq.matches) startSlideshow();
+  mq.addEventListener("change", () => mq.matches ? stopSlideshow() : startSlideshow());
 </script>

@@ -29,6 +29,7 @@ const heroImages = [
   instagramUrl={content.contact.instagramUrl}
 >
   <Navbar />
+  <main id="main-content">
   <Hero
     title={content.hero.title}
     subtitle={content.hero.subtitle}
@@ -99,6 +100,7 @@ const heroImages = [
     instagramUrl={content.contact.instagramUrl}
     mapEmbedUrl={content.location.mapEmbedUrl}
   />
+  </main>
   <Footer />
   <WhatsAppFloat phone={content.contact.phone} />
 </Layout>

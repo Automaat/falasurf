@@ -61,6 +61,9 @@ const ogLocaleAlt = lang === "pl" ? "en_GB" : "pl_PL";
     <SchemaOrg lang={lang} phone={phone} facebookUrl={facebookUrl} instagramUrl={instagramUrl} />
   </head>
   <body class="bg-white">
+    <a href="#main-content" class="skip-to-content">
+      {lang === "pl" ? "Przejdź do treści" : "Skip to content"}
+    </a>
     <slot />
   </body>
 </html>

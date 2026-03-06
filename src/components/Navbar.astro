@@ -19,7 +19,7 @@ const navItems = [
 ];
 ---
 
-<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" aria-label="Main navigation">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 flex items-center justify-between h-16 md:h-20">
     <a href={getLocalePath(lang)} class="flex-shrink-0">
       <img
@@ -58,6 +58,8 @@ const navItems = [
       id="nav-toggle"
       class="lg:hidden flex flex-col gap-[5px] cursor-pointer p-2"
       aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
       type="button"
     >
       <span class="nav-bar block w-6 h-[2px] bg-white transition-all duration-300 origin-center"></span>
@@ -139,6 +141,7 @@ const navItems = [
 
   toggle.addEventListener("click", () => {
     menuOpen = !menuOpen;
+    toggle.setAttribute("aria-expanded", String(menuOpen));
     menu.classList.toggle("hidden");
     menu.classList.toggle("flex");
     if (menuOpen) {
@@ -156,6 +159,7 @@ const navItems = [
   document.querySelectorAll(".mobile-link").forEach(link => {
     link.addEventListener("click", () => {
       menuOpen = false;
+      toggle.setAttribute("aria-expanded", "false");
       menu.classList.add("hidden");
       menu.classList.remove("flex");
       bars[0].classList.remove("translate-y-[7px]", "rotate-45");
