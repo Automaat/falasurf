@@ -36,8 +36,8 @@ export default defineConfig({
     process.env.VERCEL_GIT_COMMIT_REF ||
     process.env.HEAD ||
     "main",
-  clientId: process.env.TINA_PUBLIC_CLIENT_ID || "",
-  token: process.env.TINA_TOKEN || "",
+  clientId: process.env.TINA_PUBLIC_CLIENT_ID || "local",
+  token: process.env.TINA_TOKEN || "local",
   build: {
     outputFolder: "admin",
     publicFolder: "public",
