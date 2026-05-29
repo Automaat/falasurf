@@ -14,8 +14,8 @@ const localBusiness = {
   "@type": ["LocalBusiness", "SportsActivityLocation"],
   name: "Fala Wind & Surf School",
   description: lang === "pl"
-    ? "Profesjonalne lekcje windsurfingu i surfingu w El Cotillo, Fuerteventura."
-    : "Professional windsurfing & surfing lessons in El Cotillo, Fuerteventura.",
+    ? "Profesjonalne lekcje surfingu i windsurfingu w El Cotillo, Fuerteventura."
+    : "Professional surfing & windsurfing lessons in El Cotillo, Fuerteventura.",
   url: siteUrl,
   telephone: phone,
   image: `${siteUrl}/images/og-image.jpg`,
@@ -45,6 +45,16 @@ const courses = [
   {
     "@context": "https://schema.org",
     "@type": "Course",
+    name: lang === "pl" ? "Lekcje surfingu" : "Surfing lessons",
+    description: lang === "pl"
+      ? "Lekcje surfingu w małych grupach na północnym wybrzeżu Fuerteventury."
+      : "Surfing lessons in small groups on the north coast of Fuerteventura.",
+    provider: { "@type": "Organization", name: "Fala Wind & Surf School", url: siteUrl },
+    offers: { "@type": "Offer", price: "60", priceCurrency: "EUR", availability: "https://schema.org/InStock" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
     name: lang === "pl" ? "Zajęcia grupowe z windsurfingu" : "Group windsurfing lessons",
     description: lang === "pl"
       ? "Lekcje windsurfingu w małych grupach do 4 osób na lagunie El Cotillo."
@@ -61,16 +71,6 @@ const courses = [
       : "Individual windsurfing lessons with Witchcraft equipment.",
     provider: { "@type": "Organization", name: "Fala Wind & Surf School", url: siteUrl },
     offers: { "@type": "Offer", price: "100", priceCurrency: "EUR", availability: "https://schema.org/InStock" },
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Course",
-    name: lang === "pl" ? "Lekcje surfingu" : "Surfing lessons",
-    description: lang === "pl"
-      ? "Lekcje surfingu w małych grupach na północnym wybrzeżu Fuerteventury."
-      : "Surfing lessons in small groups on the north coast of Fuerteventura.",
-    provider: { "@type": "Organization", name: "Fala Wind & Surf School", url: siteUrl },
-    offers: { "@type": "Offer", price: "60", priceCurrency: "EUR", availability: "https://schema.org/InStock" },
   },
   {
     "@context": "https://schema.org",

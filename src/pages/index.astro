@@ -22,8 +22,8 @@ const heroImages = [
 ---
 
 <Layout
-  title="Fala Wind & Surf School — Lekcje Windsurfingu i Surfingu | El Cotillo, Fuerteventura"
-  description="Profesjonalne lekcje windsurfingu i surfingu w El Cotillo, Fuerteventura. 20+ lat doświadczenia, małe grupy do 4 osób, sprzęt Witchcraft."
+  title="Fala Wind & Surf School — Lekcje Surfingu i Windsurfingu | El Cotillo, Fuerteventura"
+  description="Profesjonalne lekcje surfingu i windsurfingu w El Cotillo, Fuerteventura. 20+ lat doświadczenia, małe grupy do 4 osób, sprzęt Witchcraft."
   phone={content.contact.phone}
   facebookUrl={content.contact.facebookUrl}
   instagramUrl={content.contact.instagramUrl}
@@ -46,19 +46,19 @@ const heroImages = [
   />
   <WaveDivider from="white" to="var(--color-sand)" />
   <Section
-    id="windsurfing"
-    title={content.windsurfing.title}
-    body={content.windsurfing.body}
-    images={content.windsurfing.images}
+    id="surfing"
+    title={content.surfing.title}
+    body={content.surfing.body}
+    images={content.surfing.images}
     reverse
     bgColor="sand"
   />
   <WaveDivider from="var(--color-sand)" to="white" />
   <Section
-    id="surfing"
-    title={content.surfing.title}
-    body={content.surfing.body}
-    images={content.surfing.images}
+    id="windsurfing"
+    title={content.windsurfing.title}
+    body={content.windsurfing.body}
+    images={content.windsurfing.images}
   />
   <WaveDivider from="white" to="var(--color-sand)" />
   <Section
@@ -78,9 +78,9 @@ const heroImages = [
     priceLabel={content.pricing.priceLabel}
     bookButton={content.pricing.bookButton}
     categories={[
+      content.pricing.surfing,
       content.pricing.windsurfing,
       content.pricing.wingfoil,
-      content.pricing.surfing,
       content.pricing.equipment,
     ]}
     contactAnchor="#kontakt"
