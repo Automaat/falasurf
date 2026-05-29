@@ -1,6 +1,6 @@
-# Fala Wind & Surf School
+# Fala Surf & Wind School
 
-Website for Fala Wind & Surf School — windsurfing and surfing lessons in El Cotillo, Fuerteventura.
+Website for Fala Surf & Wind School — surfing and windsurfing lessons in El Cotillo, Fuerteventura.
 
 **Live:** [falawindsurfschool.com](https://falawindsurfschool.com)
 
