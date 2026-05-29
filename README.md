@@ -28,6 +28,39 @@ npm run build      # production build (TinaCMS + Astro)
 npm run preview    # preview production build
 ```
 
+## Analytics
+
+Google Analytics 4 with **Consent Mode v2**. Privacy-first by design:
+
+- `gtag.js` loads **only after the visitor accepts** the consent banner — no
+  cookies, no third-party request, and no Lighthouse script-budget cost until then.
+- Declining (or ignoring) the banner means no tracking at all.
+- Bilingual consent banner (PL/EN), choice persisted in `localStorage`.
+
+Set the Measurement ID via env (copy `.env.example` to `.env`):
+
+```bash
+PUBLIC_GA_ID=G-XXXXXXXXXX
+```
+
+Leave it empty to disable analytics entirely (the banner and script never render).
+
+### Tracked events
+
+Clicks are tracked declaratively — add `data-track="<event>"` plus optional
+`data-track-*` params (dashes become underscores) to any element:
+
+| Event             | Where                                   | Params                          |
+| ----------------- | --------------------------------------- | ------------------------------- |
+| `book`            | Hero CTA, pricing cards                 | `location`, `category`          |
+| `whatsapp`        | Contact card, floating button           | `location`                      |
+| `call`            | Navbar + contact phone links            | `location`                      |
+| `language_switch` | Navbar (desktop + mobile)               | `to`, `location`                |
+| `social`          | Contact + footer Facebook/Instagram     | `network`, `location`           |
+| `map_engage`      | Google Maps iframe (inferred from blur) | `location`                      |
+
+Implementation lives in `src/components/Analytics.astro`.
+
 ## Project structure
 
 ```

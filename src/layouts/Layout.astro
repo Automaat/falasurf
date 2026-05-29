@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { getLangFromUrl, getLocalePath } from "../i18n/ui";
 import SchemaOrg from "../components/SchemaOrg.astro";
+import Analytics from "../components/Analytics.astro";
 
 interface Props {
   title: string;
@@ -59,6 +60,7 @@ const ogLocaleAlt = lang === "pl" ? "en_GB" : "pl_PL";
     <link rel="preconnect" href="https://maps.googleapis.com" />
     <title>{title}</title>
     <SchemaOrg lang={lang} phone={phone} facebookUrl={facebookUrl} instagramUrl={instagramUrl} />
+    <Analytics lang={lang} />
   </head>
   <body class="bg-white">
     <a href="#main-content" class="skip-to-content">
