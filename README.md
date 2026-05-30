@@ -47,6 +47,11 @@ PUBLIC_GA_ID=G-XXXXXXXXXX
 
 Set `PUBLIC_GA_ID=""` to disable analytics entirely (banner and script never render).
 
+Visitors can withdraw consent any time via the **Cookie settings** link in the
+footer (clears the stored choice and re-shows the banner). The **Privacy & Cookie
+Policy** lives at `/polityka-prywatnosci` (PL) and `/en/privacy-policy` (EN); both
+are `noindex` and excluded from the sitemap.
+
 ### Tracked events
 
 Clicks are tracked declaratively — add `data-track="<event>"` plus optional

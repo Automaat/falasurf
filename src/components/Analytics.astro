@@ -104,6 +104,18 @@ const analyticsScript = gaId
     window.track(name, params);
   }, true);
 
+  // "Cookie settings" control (footer): clear the stored choice and reload so
+  // the consent banner reappears — lets visitors withdraw consent as easily as
+  // they gave it (GDPR).
+  document.addEventListener("click", function (e) {
+    var node = e.target;
+    var el = node && node.closest ? node.closest("[data-cookie-settings]") : null;
+    if (!el) return;
+    e.preventDefault();
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }, true);
+
   function initDom() {
     // Consent banner — shown only until a choice is stored.
     if (!localStorage.getItem(STORAGE_KEY)) {

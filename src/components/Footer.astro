@@ -4,6 +4,7 @@ import { getLangFromUrl, useTranslations } from "../i18n/ui";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
+const privacyPath = lang === "pl" ? "/polityka-prywatnosci" : "/en/privacy-policy";
 ---
 
 <footer class="bg-navy text-white">
@@ -45,6 +46,16 @@ const year = new Date().getFullYear();
           </svg>
         </a>
       </div>
+    </div>
+    <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/60">
+      <a href={privacyPath} class="hover:text-white transition-colors">{t("footer.privacy")}</a>
+      <button
+        type="button"
+        data-cookie-settings
+        class="hover:text-white transition-colors cursor-pointer"
+      >
+        {t("footer.cookies")}
+      </button>
     </div>
   </div>
 </footer>

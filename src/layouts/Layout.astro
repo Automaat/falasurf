@@ -11,6 +11,7 @@ interface Props {
   phone?: string;
   facebookUrl?: string;
   instagramUrl?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   phone = "+34 612 49 07 32",
   facebookUrl = "https://www.facebook.com/Fala-Windsurf-Surf-School-109607297994786",
   instagramUrl = "https://www.instagram.com/fala_surf_school/",
+  noindex = false,
 } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const altLang = lang === "pl" ? "en" : "pl";
@@ -36,6 +38,7 @@ const ogLocaleAlt = lang === "pl" ? "en_GB" : "pl_PL";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="author" content="Fala Surf & Wind School" />
     <meta name="theme-color" content="#2d51a5" />
     <link rel="icon" type="image/png" href="/images/logo.png" />
