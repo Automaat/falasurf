@@ -4,6 +4,7 @@ import { getLangFromUrl, useTranslations } from "../i18n/ui";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
+const privacyPath = lang === "pl" ? "/polityka-prywatnosci" : "/en/privacy-policy";
 ---
 
 <footer class="bg-navy text-white">
@@ -20,6 +21,9 @@ const year = new Date().getFullYear();
           href="https://www.facebook.com/Fala-Windsurf-Surf-School-109607297994786"
           target="_blank"
           rel="noopener noreferrer"
+          data-track="social"
+          data-track-network="facebook"
+          data-track-location="footer"
           class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-white transition-all"
           aria-label="Facebook"
         >
@@ -31,6 +35,9 @@ const year = new Date().getFullYear();
           href="https://www.instagram.com/fala_surf_school/"
           target="_blank"
           rel="noopener noreferrer"
+          data-track="social"
+          data-track-network="instagram"
+          data-track-location="footer"
           class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-white transition-all"
           aria-label="Instagram"
         >
@@ -39,6 +46,16 @@ const year = new Date().getFullYear();
           </svg>
         </a>
       </div>
+    </div>
+    <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/60">
+      <a href={privacyPath} class="hover:text-white transition-colors">{t("footer.privacy")}</a>
+      <button
+        type="button"
+        data-cookie-settings
+        class="hover:text-white transition-colors cursor-pointer"
+      >
+        {t("footer.cookies")}
+      </button>
     </div>
   </div>
 </footer>

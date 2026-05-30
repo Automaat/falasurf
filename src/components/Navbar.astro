@@ -42,11 +42,13 @@ const navItems = [
     </div>
 
     <div class="hidden lg:flex items-center gap-5">
-      <a href="tel:+34612490732" class="nav-phone text-sm font-semibold text-white/90 hover:text-white transition-colors">
+      <a href="tel:+34612490732" data-track="call" data-track-location="nav" class="nav-phone text-sm font-semibold text-white/90 hover:text-white transition-colors">
         +34 612 49 07 32
       </a>
       <a
         href={getLocalePath(altLang)}
+        data-track="language_switch"
+        data-track-to={altLang}
         class="flex items-center gap-1.5 text-sm"
         aria-label={altLabel}
       >
@@ -78,10 +80,10 @@ const navItems = [
       </a>
     ))}
     <div class="px-6 py-4 flex items-center justify-between border-t border-gray-100">
-      <a href="tel:+34612490732" class="text-sm font-semibold text-navy">
+      <a href="tel:+34612490732" data-track="call" data-track-location="nav_mobile" class="text-sm font-semibold text-navy">
         +34 612 49 07 32
       </a>
-      <a href={getLocalePath(altLang)} class="flex items-center gap-2">
+      <a href={getLocalePath(altLang)} data-track="language_switch" data-track-to={altLang} data-track-location="mobile" class="flex items-center gap-2">
         <img src={altFlag} alt={altLabel} class="h-6 w-6 rounded-full object-cover ring-2 ring-navy/20" />
         <span class="text-sm font-medium text-gray-text">{altLabel}</span>
       </a>

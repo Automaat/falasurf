@@ -28,6 +28,46 @@ npm run build      # production build (TinaCMS + Astro)
 npm run preview    # preview production build
 ```
 
+## Analytics
+
+Google Analytics 4 with **Consent Mode v2**. Privacy-first by design:
+
+- `gtag.js` loads **only after the visitor accepts** the consent banner — no
+  cookies, no third-party request, and no Lighthouse script-budget cost until then.
+- Declining (or ignoring) the banner means no tracking at all.
+- Bilingual consent banner (PL/EN), choice persisted in `localStorage`.
+
+The production Measurement ID is baked into `Analytics.astro` as the default
+(a GA4 ID is public — it's visible in page source). To override per-environment,
+copy `.env.example` to `.env` and set:
+
+```bash
+PUBLIC_GA_ID=G-XXXXXXXXXX
+```
+
+Set `PUBLIC_GA_ID=""` to disable analytics entirely (banner and script never render).
+
+Visitors can withdraw consent any time via the **Cookie settings** link in the
+footer (clears the stored choice and re-shows the banner). The **Privacy & Cookie
+Policy** lives at `/polityka-prywatnosci` (PL) and `/en/privacy-policy` (EN); both
+are `noindex` and excluded from the sitemap.
+
+### Tracked events
+
+Clicks are tracked declaratively — add `data-track="<event>"` plus optional
+`data-track-*` params (dashes become underscores) to any element:
+
+| Event             | Where                                   | Params                          |
+| ----------------- | --------------------------------------- | ------------------------------- |
+| `book`            | Hero CTA, pricing cards                 | `location`, `category`          |
+| `whatsapp`        | Contact card, floating button           | `location`                      |
+| `call`            | Navbar + contact phone links            | `location`                      |
+| `language_switch` | Navbar (desktop + mobile)               | `to`, `location`                |
+| `social`          | Contact + footer Facebook/Instagram     | `network`, `location`           |
+| `map_engage`      | Google Maps iframe (inferred from blur) | `location`                      |
+
+Implementation lives in `src/components/Analytics.astro`.
+
 ## Project structure
 
 ```

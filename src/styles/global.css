@@ -117,6 +117,137 @@ footer :focus-visible,
   outline-color: white;
 }
 
+/* Legal pages (privacy / cookie policy) */
+.legal-prose h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1.5rem;
+}
+
+.legal-prose h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #000;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.legal-prose p,
+.legal-prose li {
+  line-height: 1.65;
+  margin-bottom: 0.75rem;
+}
+
+.legal-prose ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.legal-prose a {
+  color: var(--color-navy);
+  text-decoration: underline;
+}
+
+.legal-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.legal-prose th,
+.legal-prose td {
+  border: 1px solid var(--color-sand-dark);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.legal-prose th {
+  background: var(--color-sand);
+  font-weight: 600;
+}
+
+/* Analytics consent banner */
+.analytics-consent {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 60;
+  max-width: 40rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: white;
+  color: var(--color-gray-text);
+  border: 1px solid var(--color-sand-dark);
+  border-radius: 1rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+  font-size: 0.875rem;
+}
+
+.analytics-consent__text {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.analytics-consent__actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.analytics-consent__btn {
+  padding: 0.5rem 1.1rem;
+  border-radius: 0.6rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.analytics-consent__btn--solid {
+  background: var(--color-navy);
+  color: white;
+}
+
+.analytics-consent__btn--solid:hover {
+  background: var(--color-navy-dark);
+}
+
+.analytics-consent__btn--ghost {
+  background: transparent;
+  color: var(--color-gray-text);
+  border-color: var(--color-sand-dark);
+}
+
+.analytics-consent__btn--ghost:hover {
+  background: var(--color-sand);
+}
+
+@media (min-width: 640px) {
+  .analytics-consent {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .analytics-consent__text {
+    flex: 1;
+  }
+
+  .analytics-consent__actions {
+    flex-shrink: 0;
+  }
+}
+
 /* Accessibility: reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -60,6 +60,9 @@ const { id, title, sessionsLabel, hoursLabel, priceLabel, bookButton, categories
           <div class="p-5 pt-0">
             <a
               href={contactAnchor}
+              data-track="book"
+              data-track-location="pricing"
+              data-track-category={cat.label}
               class="block text-center bg-navy text-white py-3 rounded-lg font-semibold hover:bg-navy-dark transition-colors text-sm tracking-wide uppercase"
             >
               {bookButton}

@@ -8,6 +8,8 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
+      filter: (page) =>
+        !page.includes("/polityka-prywatnosci") && !page.includes("/privacy-policy"),
       i18n: {
         defaultLocale: "pl",
         locales: {

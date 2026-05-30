@@ -15,6 +15,8 @@ export const ui = {
     "nav.pricing": "Cennik",
     "nav.contact": "Kontakt",
     "footer.rights": "Wszelkie prawa zastrzeżone",
+    "footer.privacy": "Polityka prywatności",
+    "footer.cookies": "Ustawienia cookies",
   },
   en: {
     "nav.home": "Home",
@@ -25,6 +27,8 @@ export const ui = {
     "nav.pricing": "Prices",
     "nav.contact": "Contact",
     "footer.rights": "All rights reserved",
+    "footer.privacy": "Privacy policy",
+    "footer.cookies": "Cookie settings",
   },
 } as const;
 

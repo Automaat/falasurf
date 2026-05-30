@@ -1,0 +1,188 @@
+---
+/**
+ * Google Analytics 4 with Consent Mode v2.
+ *
+ * Privacy-first: gtag.js is NOT loaded until the visitor accepts. No cookies,
+ * no third-party request, and no Lighthouse script-budget impact until consent.
+ * Defaults to the production Measurement ID; override with PUBLIC_GA_ID, or set
+ * it to an empty string to disable analytics entirely (banner + script).
+ *
+ * Click tracking is declarative — add to any element:
+ *   data-track="book" data-track-location="hero"
+ * The delegated listener turns every `data-track-*` attribute into a GA4 event
+ * param (dashes become underscores).
+ */
+const { lang = "pl" } = Astro.props;
+// Public GA4 Measurement ID — safe to commit (it's exposed in page source).
+// Override per-environment with PUBLIC_GA_ID; set it to "" to disable analytics.
+const gaId = import.meta.env.PUBLIC_GA_ID ?? "G-WNETN1EEPT";
+
+const consentStrings = {
+  pl: {
+    text: "Używamy Google Analytics, aby ulepszać tę stronę. Zaakceptuj lub odrzuć analityczne pliki cookie.",
+    accept: "Akceptuję",
+    decline: "Odrzuć",
+    aria: "Zgoda na pliki cookie",
+  },
+  en: {
+    text: "We use Google Analytics to improve this site. Accept or decline analytics cookies.",
+    accept: "Accept",
+    decline: "Decline",
+    aria: "Cookie consent",
+  },
+};
+const strings = consentStrings[lang as "pl" | "en"] ?? consentStrings.pl;
+
+// Built as a string and emitted via set:html so the raw JS (which contains `<`
+// and `{`) is never parsed as JSX. Server values are injected as JSON literals.
+const analyticsScript = gaId
+  ? `
+(function () {
+  var gaId = ${JSON.stringify(gaId)};
+  var strings = ${JSON.stringify(strings)};
+  if (!gaId) return;
+
+  var STORAGE_KEY = "fala-analytics-consent";
+  var dataLayer = (window.dataLayer = window.dataLayer || []);
+  function gtag() { dataLayer.push(arguments); }
+  window.gtag = gtag;
+
+  // Consent Mode v2 — everything denied until the visitor opts in.
+  gtag("consent", "default", {
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    analytics_storage: "denied",
+    wait_for_update: 500,
+  });
+  gtag("js", new Date());
+
+  var gaLoaded = false;
+  var queue = [];
+
+  function loadGa() {
+    if (gaLoaded) return;
+    gaLoaded = true;
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + gaId;
+    document.head.appendChild(s);
+    gtag("config", gaId, { anonymize_ip: true });
+    for (var i = 0; i < queue.length; i++) gtag("event", queue[i].name, queue[i].params);
+    queue = [];
+  }
+
+  function grant() {
+    gtag("consent", "update", { analytics_storage: "granted" });
+    loadGa();
+  }
+
+  // Public API used by the delegated click listener.
+  window.track = function (name, params) {
+    params = params || {};
+    if (localStorage.getItem(STORAGE_KEY) !== "granted") return;
+    if (gaLoaded) gtag("event", name, params);
+    else queue.push({ name: name, params: params });
+  };
+
+  if (localStorage.getItem(STORAGE_KEY) === "granted") grant();
+
+  // Declarative click tracking: data-track="name" + data-track-*="value".
+  document.addEventListener("click", function (e) {
+    var node = e.target;
+    var el = node && node.closest ? node.closest("[data-track]") : null;
+    if (!el) return;
+    var name = el.getAttribute("data-track");
+    var params = {};
+    var attrs = el.attributes;
+    for (var i = 0; i < attrs.length; i++) {
+      var a = attrs[i];
+      if (a.name.indexOf("data-track-") === 0) {
+        params[a.name.slice(11).replace(/-/g, "_")] = a.value;
+      }
+    }
+    window.track(name, params);
+  }, true);
+
+  // "Cookie settings" control (footer): clear the stored choice and reload so
+  // the consent banner reappears — lets visitors withdraw consent as easily as
+  // they gave it (GDPR).
+  document.addEventListener("click", function (e) {
+    var node = e.target;
+    var el = node && node.closest ? node.closest("[data-cookie-settings]") : null;
+    if (!el) return;
+    e.preventDefault();
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }, true);
+
+  function initDom() {
+    // Consent banner — shown only until a choice is stored.
+    if (!localStorage.getItem(STORAGE_KEY)) {
+      var bar = document.createElement("div");
+      bar.className = "analytics-consent";
+      bar.setAttribute("role", "dialog");
+      bar.setAttribute("aria-label", strings.aria);
+
+      var p = document.createElement("p");
+      p.className = "analytics-consent__text";
+      p.textContent = strings.text;
+
+      var actions = document.createElement("div");
+      actions.className = "analytics-consent__actions";
+
+      var decline = document.createElement("button");
+      decline.type = "button";
+      decline.textContent = strings.decline;
+      decline.className = "analytics-consent__btn analytics-consent__btn--ghost";
+
+      var accept = document.createElement("button");
+      accept.type = "button";
+      accept.textContent = strings.accept;
+      accept.className = "analytics-consent__btn analytics-consent__btn--solid";
+
+      actions.appendChild(decline);
+      actions.appendChild(accept);
+      bar.appendChild(p);
+      bar.appendChild(actions);
+      document.body.appendChild(bar);
+
+      accept.addEventListener("click", function () {
+        localStorage.setItem(STORAGE_KEY, "granted");
+        grant();
+        bar.remove();
+      });
+      decline.addEventListener("click", function () {
+        localStorage.setItem(STORAGE_KEY, "denied");
+        bar.remove();
+      });
+    }
+
+    // Map engagement: a cross-origin Google Maps iframe can't expose its clicks,
+    // so infer interaction from a window blur while the map is hovered.
+    var map = document.querySelector("[data-track-map]");
+    if (map) {
+      var hovering = false;
+      var fired = false;
+      map.addEventListener("mouseenter", function () { hovering = true; });
+      map.addEventListener("mouseleave", function () { hovering = false; });
+      window.addEventListener("blur", function () {
+        if (hovering && !fired) {
+          fired = true;
+          window.track("map_engage", { location: "contact" });
+        }
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initDom);
+  } else {
+    initDom();
+  }
+})();
+`
+  : "";
+---
+
+{gaId && <script is:inline set:html={analyticsScript} />}
