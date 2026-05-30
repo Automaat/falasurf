@@ -4,7 +4,8 @@
  *
  * Privacy-first: gtag.js is NOT loaded until the visitor accepts. No cookies,
  * no third-party request, and no Lighthouse script-budget impact until consent.
- * Renders nothing when PUBLIC_GA_ID is unset (dev / preview builds stay clean).
+ * Defaults to the production Measurement ID; override with PUBLIC_GA_ID, or set
+ * it to an empty string to disable analytics entirely (banner + script).
  *
  * Click tracking is declarative — add to any element:
  *   data-track="book" data-track-location="hero"
@@ -12,7 +13,9 @@
  * param (dashes become underscores).
  */
 const { lang = "pl" } = Astro.props;
-const gaId = import.meta.env.PUBLIC_GA_ID;
+// Public GA4 Measurement ID — safe to commit (it's exposed in page source).
+// Override per-environment with PUBLIC_GA_ID; set it to "" to disable analytics.
+const gaId = import.meta.env.PUBLIC_GA_ID ?? "G-WNETN1EEPT";
 
 const consentStrings = {
   pl: {

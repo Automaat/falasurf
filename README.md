@@ -37,13 +37,15 @@ Google Analytics 4 with **Consent Mode v2**. Privacy-first by design:
 - Declining (or ignoring) the banner means no tracking at all.
 - Bilingual consent banner (PL/EN), choice persisted in `localStorage`.
 
-Set the Measurement ID via env (copy `.env.example` to `.env`):
+The production Measurement ID is baked into `Analytics.astro` as the default
+(a GA4 ID is public — it's visible in page source). To override per-environment,
+copy `.env.example` to `.env` and set:
 
 ```bash
 PUBLIC_GA_ID=G-XXXXXXXXXX
 ```
 
-Leave it empty to disable analytics entirely (the banner and script never render).
+Set `PUBLIC_GA_ID=""` to disable analytics entirely (banner and script never render).
 
 ### Tracked events
 
