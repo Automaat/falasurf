@@ -10,6 +10,12 @@ interface PricingCategory {
   rows: PricingRow[];
 }
 
+interface PricingTab {
+  id: string;
+  label: string;
+  categories: PricingCategory[];
+}
+
 interface Props {
   id: string;
   title: string;
@@ -17,59 +23,127 @@ interface Props {
   hoursLabel: string;
   priceLabel: string;
   bookButton: string;
-  categories: PricingCategory[];
+  tabs: PricingTab[];
   contactAnchor: string;
 }
 
-const { id, title, sessionsLabel, hoursLabel, priceLabel, bookButton, categories, contactAnchor } = Astro.props;
+const { id, title, sessionsLabel, hoursLabel, priceLabel, bookButton, tabs, contactAnchor } = Astro.props;
 ---
 
 <section id={id} class="py-20 md:py-28 bg-sand scroll-mt-20">
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
     <h2 class="text-3xl md:text-4xl font-bold text-black mb-4 text-center">{title}</h2>
-    <div class="w-12 h-1 bg-navy rounded-full mx-auto mb-14"></div>
+    <div class="w-12 h-1 bg-navy rounded-full mx-auto mb-10"></div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-7">
-      {categories.map((cat) => (
-        <div class="pricing-card bg-white rounded-[20px] shadow-[0_0_8px_rgba(0,0,0,0.12)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col">
-          <div class="bg-navy text-white text-center py-5 px-4">
-            <h3 class="text-lg font-bold tracking-wide">{cat.label}</h3>
-          </div>
-          <div class="p-5 flex-1">
-            <table class="w-full">
-              <caption class="sr-only">{cat.label}</caption>
-              <thead class="sr-only">
-                <tr>
-                  <th>{sessionsLabel} / {hoursLabel}</th>
-                  <th>{priceLabel}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cat.rows.map((row, i) => (
-                  <tr class:list={["flex items-baseline justify-between py-4", i > 0 && "border-t border-gray-100"]}>
-                    <td>
-                      <span class="text-base font-semibold text-black">{row.sessions}</span>
-                      <span class="text-sm text-gray-text/70 ml-1.5">/ {row.hours}</span>
-                    </td>
-                    <td class="text-2xl font-bold text-navy">{row.price}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div class="p-5 pt-0">
-            <a
-              href={contactAnchor}
-              data-track="book"
-              data-track-location="pricing"
-              data-track-category={cat.label}
-              class="block text-center bg-navy text-white py-3 rounded-lg font-semibold hover:bg-navy-dark transition-colors text-sm tracking-wide uppercase"
-            >
-              {bookButton}
-            </a>
-          </div>
-        </div>
-      ))}
+    <div class="flex justify-center mb-12">
+      <div class="inline-flex bg-white rounded-full p-1.5 shadow-[0_0_8px_rgba(0,0,0,0.12)]" role="tablist" aria-label={title} data-pricing-tabs>
+        {tabs.map((tab, i) => (
+          <button
+            type="button"
+            role="tab"
+            id={`${id}-tab-${tab.id}`}
+            aria-controls={`${id}-panel-${tab.id}`}
+            aria-selected={i === 0 ? "true" : "false"}
+            tabindex={i === 0 ? "0" : "-1"}
+            data-pricing-tab={tab.id}
+            class:list={[
+              "px-6 sm:px-10 py-2.5 rounded-full font-semibold text-sm tracking-wide uppercase transition-colors",
+              i === 0 ? "bg-navy text-white" : "text-gray-text hover:text-navy",
+            ]}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
     </div>
+
+    {tabs.map((tab, i) => (
+      <div
+        role="tabpanel"
+        id={`${id}-panel-${tab.id}`}
+        aria-labelledby={`${id}-tab-${tab.id}`}
+        data-pricing-panel={tab.id}
+        hidden={i !== 0}
+      >
+        <div class="grid sm:grid-cols-2 gap-7 max-w-3xl mx-auto">
+          {tab.categories.map((cat) => (
+            <div class="pricing-card bg-white rounded-[20px] shadow-[0_0_8px_rgba(0,0,0,0.12)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col">
+              <div class="bg-navy text-white text-center py-5 px-4">
+                <h3 class="text-lg font-bold tracking-wide">{cat.label}</h3>
+              </div>
+              <div class="p-5 flex-1">
+                <table class="w-full">
+                  <caption class="sr-only">{tab.label} — {cat.label}</caption>
+                  <thead class="sr-only">
+                    <tr>
+                      <th>{sessionsLabel} / {hoursLabel}</th>
+                      <th>{priceLabel}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cat.rows.map((row, ri) => (
+                      <tr class:list={["flex items-baseline justify-between py-4", ri > 0 && "border-t border-gray-100"]}>
+                        <td>
+                          <span class="text-base font-semibold text-black">{row.sessions}</span>
+                          <span class="text-sm text-gray-text/70 ml-1.5">/ {row.hours}</span>
+                        </td>
+                        <td class="text-2xl font-bold text-navy">{row.price}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div class="p-5 pt-0">
+                <a
+                  href={contactAnchor}
+                  data-track="book"
+                  data-track-location="pricing"
+                  data-track-category={`${tab.label} — ${cat.label}`}
+                  class="block text-center bg-navy text-white py-3 rounded-lg font-semibold hover:bg-navy-dark transition-colors text-sm tracking-wide uppercase"
+                >
+                  {bookButton}
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
   </div>
 </section>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-pricing-tabs]").forEach((tablist) => {
+    const section = tablist.closest("section");
+    if (!section) return;
+    const tabs = Array.from(tablist.querySelectorAll<HTMLButtonElement>("[data-pricing-tab]"));
+
+    const activate = (target: HTMLButtonElement) => {
+      const id = target.dataset.pricingTab;
+      tabs.forEach((tab) => {
+        const selected = tab === target;
+        tab.setAttribute("aria-selected", selected ? "true" : "false");
+        tab.tabIndex = selected ? 0 : -1;
+        tab.classList.toggle("bg-navy", selected);
+        tab.classList.toggle("text-white", selected);
+        tab.classList.toggle("text-gray-text", !selected);
+        tab.classList.toggle("hover:text-navy", !selected);
+      });
+      section.querySelectorAll<HTMLElement>("[data-pricing-panel]").forEach((panel) => {
+        panel.hidden = panel.dataset.pricingPanel !== id;
+      });
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => activate(tab));
+      tab.addEventListener("keydown", (e) => {
+        if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+        e.preventDefault();
+        const dir = e.key === "ArrowRight" ? 1 : -1;
+        const next = tabs[(i + dir + tabs.length) % tabs.length];
+        next.focus();
+        activate(next);
+      });
+    });
+  });
+</script>

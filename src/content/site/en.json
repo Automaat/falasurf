@@ -88,36 +88,46 @@
     "hoursLabel": "Hours",
     "priceLabel": "Price",
     "bookButton": "Book now",
-    "windsurfing": {
-      "label": "Group lessons",
-      "rows": [
-        { "sessions": "1 session", "hours": "2h", "price": "60€" },
-        { "sessions": "3 sessions", "hours": "6h", "price": "165€" },
-        { "sessions": "5 sessions", "hours": "10h", "price": "250€" }
-      ]
-    },
-    "wingfoil": {
-      "label": "Individual lessons",
-      "rows": [
-        { "sessions": "1 session", "hours": "2h", "price": "100€" }
-      ]
-    },
-    "surfing": {
-      "label": "Surfing",
-      "rows": [
-        { "sessions": "1 session", "hours": "2h", "price": "60€" },
-        { "sessions": "3 sessions", "hours": "6h", "price": "165€" },
-        { "sessions": "5 sessions", "hours": "10h", "price": "250€" }
-      ]
-    },
-    "equipment": {
-      "label": "Wave training",
-      "rows": [
-        { "sessions": "1 session", "hours": "2h", "price": "70€" },
-        { "sessions": "3 sessions", "hours": "6h", "price": "195€" },
-        { "sessions": "5 sessions", "hours": "10h", "price": "300€" }
-      ]
-    }
+    "tabs": [
+      {
+        "id": "surfing",
+        "label": "Surfing",
+        "categories": [
+          {
+            "label": "Group lessons",
+            "rows": [
+              { "sessions": "1 session", "hours": "2h", "price": "60€" },
+              { "sessions": "3 sessions", "hours": "6h", "price": "165€" },
+              { "sessions": "5 sessions", "hours": "10h", "price": "250€" }
+            ]
+          },
+          {
+            "label": "Private lessons",
+            "rows": [
+              { "sessions": "1 session", "hours": "2h", "price": "80€" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "windsurfing",
+        "label": "Windsurfing",
+        "categories": [
+          {
+            "label": "Group lessons",
+            "rows": [
+              { "sessions": "1 session", "hours": "2h", "price": "70€" }
+            ]
+          },
+          {
+            "label": "Private lessons",
+            "rows": [
+              { "sessions": "1 session", "hours": "2h", "price": "90€" }
+            ]
+          }
+        ]
+      }
+    ]
   },
   "contact": {
     "title": "Contact",
