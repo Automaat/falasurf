@@ -60,36 +60,46 @@
     "hoursLabel": "Godziny",
     "priceLabel": "Cena",
     "bookButton": "Zarezerwuj",
-    "windsurfing": {
-      "label": "Zajęcia grupowe",
-      "rows": [
-        { "sessions": "1 sesja", "hours": "2h", "price": "60€" },
-        { "sessions": "3 sesje", "hours": "6h", "price": "165€" },
-        { "sessions": "5 sesji", "hours": "10h", "price": "250€" }
-      ]
-    },
-    "wingfoil": {
-      "label": "Zajęcia indywidualne",
-      "rows": [
-        { "sessions": "1 sesja", "hours": "2h", "price": "100€" }
-      ]
-    },
-    "surfing": {
-      "label": "Surfing",
-      "rows": [
-        { "sessions": "1 sesja", "hours": "2h", "price": "60€" },
-        { "sessions": "3 sesje", "hours": "6h", "price": "165€" },
-        { "sessions": "5 sesji", "hours": "10h", "price": "250€" }
-      ]
-    },
-    "equipment": {
-      "label": "Szkolenie Wave",
-      "rows": [
-        { "sessions": "1 sesja", "hours": "2h", "price": "70€" },
-        { "sessions": "3 sesje", "hours": "6h", "price": "195€" },
-        { "sessions": "5 sesji", "hours": "10h", "price": "300€" }
-      ]
-    }
+    "tabs": [
+      {
+        "id": "surfing",
+        "label": "Surfing",
+        "categories": [
+          {
+            "label": "Zajęcia grupowe",
+            "rows": [
+              { "sessions": "1 sesja", "hours": "2h", "price": "60€" },
+              { "sessions": "3 sesje", "hours": "6h", "price": "165€" },
+              { "sessions": "5 sesji", "hours": "10h", "price": "250€" }
+            ]
+          },
+          {
+            "label": "Zajęcia prywatne",
+            "rows": [
+              { "sessions": "1 sesja", "hours": "2h", "price": "80€" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "windsurfing",
+        "label": "Windsurfing",
+        "categories": [
+          {
+            "label": "Zajęcia grupowe",
+            "rows": [
+              { "sessions": "1 sesja", "hours": "2h", "price": "70€" }
+            ]
+          },
+          {
+            "label": "Zajęcia prywatne",
+            "rows": [
+              { "sessions": "1 sesja", "hours": "2h", "price": "90€" }
+            ]
+          }
+        ]
+      }
+    ]
   },
   "trust": {
     "stats": [
