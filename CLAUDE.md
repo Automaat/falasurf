@@ -1,0 +1,123 @@
+# Fala Surf & Wind School
+
+Static marketing site for a surf/windsurf school in El Cotillo, Fuerteventura.
+Bilingual (PL default, EN at `/en/`), TinaCMS-edited, deployed to Cloudflare.
+Live: https://falawindsurfschool.com
+
+## Project Structure
+
+```
+src/
+  components/    Astro components (Hero, Navbar, Section, PricingTable, ...)
+  content/site/  Content JSON — pl.json (default) + en.json (MUST stay in sync)
+  i18n/ui.ts     Nav/footer UI strings + lang helpers (getLangFromUrl, t, getLocalePath)
+  layouts/       Layout.astro — <head>, meta/OG/hreflang/canonical, SchemaOrg, Analytics
+  pages/         Routes. index.astro (PL) imports pl.json; en/index.astro imports en.json
+  styles/        global.css — Tailwind v4 @theme tokens + custom CSS
+public/images/   Static assets (hero/, about/, surfing/, windsurfing/, flags/)
+tina/            TinaCMS config (config.ts) + __generated__/ (DO NOT edit)
+```
+
+## Tech Stack
+
+- **Astro 6** — static site generator, `.astro` components, zero JS by default
+- **Tailwind CSS v4** — CSS-first config in `src/styles/global.css` `@theme {}` block. **No `tailwind.config.js`** — add color/spacing tokens to `@theme`, reference as `--color-navy` / `bg-navy`
+- **TinaCMS 3** — content management (owner-facing GUI); schema in `tina/config.ts`
+- **React 19** — present ONLY as a TinaCMS dependency. Do not author site UI in React; use `.astro`
+- **Node 24** (via `.mise.toml`), **Cloudflare** deploy (`wrangler.jsonc`, serves `./dist`)
+
+## Bilingual Content — Hard Rules
+
+PL is the default locale (no URL prefix); EN lives at `/en/`.
+
+- **Edit content JSON directly** — `src/content/site/pl.json` and `en.json`. TinaCMS is the owner's GUI; Claude edits the JSON.
+- **Always sync both locales.** Any copy/content change updates `pl.json` AND `en.json` together. Never leave one locale stale.
+- **Nav/footer strings** live in `src/i18n/ui.ts` (`ui.pl` + `ui.en`) — update both halves there, not in JSON.
+- Both `pl.json` and `en.json` share the same key shape: `hero, trust, testimonials, about, windsurfing, surfing, location, pricing, contact`. Adding a key means adding it to both.
+- Pages are duplicated per locale (`pages/index.astro` ↔ `pages/en/index.astro`). A structural page change must be mirrored in both.
+
+## Development Workflow
+
+### Adding / editing a section component
+
+1. Create `src/components/Name.astro` with a typed `interface Props` + `const { ... } = Astro.props;` (match existing components).
+2. Add the section's content keys to **both** `pl.json` and `en.json`.
+3. Import and render it in `pages/index.astro` (PL) **and** `pages/en/index.astro` (EN), passing `content.<key>`.
+4. Style with Tailwind utilities + theme tokens; shared CSS goes in `global.css`.
+5. Run quality gates (below).
+
+### Adding a tracked click event
+
+Tracking is declarative — add `data-track="<event>"` and optional `data-track-*` params (dashes → underscores) to any element. Logic lives in `src/components/Analytics.astro`. Existing events: `book, whatsapp, call, language_switch, social, map_engage`. Document new events in `README.md`.
+
+### Changing nav/footer labels
+
+Edit `src/i18n/ui.ts` (`ui.pl` + `ui.en`), never hardcode UI strings in components.
+
+## Accessibility & SEO — Required Checks
+
+This site targets **WCAG 2.1 AA** and is Lighthouse-audited in CI. Before considering UI work done, verify:
+
+- [ ] All `<img>` have meaningful `alt` (decorative → `alt=""`); explicit `width`/`height` to avoid layout shift
+- [ ] First hero/LCP image: `loading="eager"` + `fetchpriority="high"`; below-fold: `loading="lazy"`
+- [ ] Interactive elements keyboard-reachable; visible `focus-visible` state preserved
+- [ ] Animations respect `prefers-reduced-motion` (see `global.css`)
+- [ ] ARIA on composite widgets (slideshow/carousel use `aria-roledescription`/`aria-label`)
+- [ ] New routes: set `<Layout title description>`; private/legal pages pass `noindex` AND are excluded from sitemap filter in `astro.config.mjs`
+- [ ] Both `hreflang` alternates resolve (PL + EN versions exist)
+
+## Quality Gates
+
+Run all before committing:
+
+```bash
+npm run check                # astro check — type-checks .astro (CI build gate)
+npx prettier --write .       # format (prettier is a devDependency)
+npm run build                # TinaCMS + Astro production build — catches build errors
+```
+
+`oxlint` lints `.ts`/`.js`/`.astro` script blocks but is **not** a project dependency —
+it runs via the klaudiush commit hook. Fix lint errors at the source; never bypass the
+hook (`--no-verify`) or add disable directives.
+
+CI (`.github/workflows/ci.yml`) runs `astro check` + `astro build` + a Lighthouse audit on every push/PR to `main`. Keep Lighthouse perf/a11y/SEO/best-practices scores from regressing.
+
+Other commands: `npm run dev` (Astro + TinaCMS dev server), `npm run preview` (serve the prod build). No test suite — `astro check` + `build` + the Lighthouse audit are the only automated gates.
+
+## Off-Limits — Never Hand-Edit
+
+- ❌ `tina/__generated__/**` — regenerated by `npm run build`; edit `tina/config.ts` instead
+- ❌ `dist/**` — build output; never commit or edit
+- ❌ `package-lock.json` — change only via `npm install`/`npm ci`
+- `KLAUDIUSH.md` is auto-generated by klaudiush — treat as read-only
+
+## Anti-Patterns
+
+**AVOID:**
+
+- ❌ Editing only one locale — PL/EN must stay in sync (content + structure)
+- ❌ Creating a `tailwind.config.js` — this is Tailwind v4; tokens go in `global.css` `@theme`
+- ❌ Authoring site UI as React components — use `.astro` (React is TinaCMS-only)
+- ❌ Hardcoding nav/footer strings in components — use `src/i18n/ui.ts`
+- ❌ Inline `onclick` analytics — use declarative `data-track` attributes
+- ❌ Adding images without `alt` + `width`/`height` — breaks a11y and CLS budget
+- ❌ Indexing legal pages — privacy pages are `noindex` and sitemap-excluded; keep them that way
+
+**REASON:** stale-locale bugs ship silently to half the audience; Tailwind v4 ignores JS config; React UI defeats Astro's zero-JS default; un-gated images regress Lighthouse a11y/CLS scores tracked in CI.
+
+## Templates — copy existing patterns
+
+- **New Astro component**: mirror `src/components/Section.astro` — typed `interface Props` + destructured `Astro.props`, Tailwind classes with `@theme` tokens.
+- **New content key**: copy an existing block in `src/content/site/pl.json` and add the identical key shape to `en.json` (e.g. `surfing` / `about`).
+
+## Commits
+
+`type(scope): description` — scope required. Title ≤50 chars, body ≤72/line.
+Sign: `git commit -s -S`. No PR refs (`#123`), no AI attribution, no `tmp` paths.
+Use `ci(actions):` / `build(deps):` — never `feat(ci)` / `fix(build)`.
+
+## Extensibility
+
+Add sections as the site grows: keep PL/EN in sync, route every new page through
+`Layout.astro`, register tracked events in `README.md`, and add Tailwind tokens to
+`global.css` `@theme`. Keep entries concrete and runnable.
